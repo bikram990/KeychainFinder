@@ -42,6 +42,7 @@
 		1A730B251FC7A03C00325A8D = {
 			isa = PBXGroup;
 			children = (
+				1A95426720A29C6500F48707 /* README.md */,
 				1A730B301FC7A03C00325A8D /* KeychainFinder */,
 				1A730B2F1FC7A03C00325A8D /* Products */,
 			);
@@ -59,7 +60,6 @@
 			isa = PBXGroup;
 			children = (
 				1A730B311FC7A03C00325A8D /* main.swift */,
-				1A95426720A29C6500F48707 /* README.md */,
 			);
 			path = KeychainFinder;
 			sourceTree = "<group>";
