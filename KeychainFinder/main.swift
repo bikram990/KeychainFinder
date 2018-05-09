@@ -15,6 +15,7 @@ var searchReturn: AnyObject? = nil
 var myErr = OSStatus()
 var internetPassword = false
 var searchTerm = false
+var everything = false
 var rawOutput = false
 
 var account = ""
@@ -29,14 +30,14 @@ func printHelp() {
     print("""
 Info:
     A quick utlity to determine what exact attributes a keychain item has.
-    Search for an item using Account Name, Service Name or Label. A search will need at least one search term.
+    Search for an item using Account Name, Service Name or Label. If you want to search for all items use -e or -everything to return all items.
 
-    By deafult only Generic Passwords will be searched for. Use "-i" to search for Internet Passwords.
+    By default only Generic Passwords will be searched for. Use "-i" to search for Internet Passwords.
     
     To get the raw results for the keychain item use "-r".
 
 Useage:
-    keychainfinder [-i] [-r] [-account || -a <account name>] [-service || -s <service name>] [-label || -l <label>]
+    keychainfinder [-i] [-r] [ -everything || -e ] [-account || -a <account name>] [-service || -s <service name>] [-label || -l <label>]
 """)
     exit(0)
 }
@@ -51,7 +52,7 @@ if CommandLine.arguments.count == 1 {
 // get arguments
 
 for arg in 0...(CommandLine.arguments.count - 1) {
-        
+    
     switch CommandLine.arguments[arg] {
     case "-i" :
         internetPassword = true
@@ -73,6 +74,8 @@ for arg in 0...(CommandLine.arguments.count - 1) {
             print("Invalid argument")
             exit(0)
         }
+    case "-everything", "-e" :
+        searchTerm = true
     case "-label", "-l" :
         if arg <= (CommandLine.arguments.count - 1) {
             label = CommandLine.arguments[arg + 1]
@@ -154,11 +157,23 @@ for item in items {
     let itemService = (item["svce"] ?? "None")
     let itemLabel = (item["labl"] ?? "None")
     let itemRef = (item["v_Ref"] ?? "None")
+    let itemPort = (item["port"] ?? "None")
+    let itemProtocol = (item["ptcl"] ?? "None")
+    let itemServer = (item["srvr"] ?? "None")
     
     print("Item: \(counter)")
     print("   Account: \(itemAccount ?? "None")")
     print("   Service: \(itemService ?? "None")")
     print("     Label: \(itemLabel ?? "None")")
+    
+    // Internet password things
+    
+    if !(((item["class"] as? String) ?? "")  == "genp") {
+        print("      Port: \(itemPort ?? "None")")
+        print("  Protocol: \(itemProtocol ?? "None")")
+        print("    Server: \(itemServer ?? "None")")
+    }
+    
     print("   Created: \(dateFormatter.string(from: item["cdat"] as! Date))")
     print("  Modified: \(dateFormatter.string(from: item["mdat"] as! Date))")
     print(" Reference: \(itemRef ?? "None")")
