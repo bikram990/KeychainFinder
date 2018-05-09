@@ -8,17 +8,23 @@ By default only Generic Passwords will be searched for. Use "-i" to search for I
 To get the raw results for the keychain item use "-r".
 
 **Synopsis:**
+
 `keychainfinder [-i] [-r] [ -everything || -e ] [-account || -a <account name>] [-service || -s <service name>] [-label || -l <label>]`
 
 **Options:**
 
 -i          return internet passwords
+
 -e          return every keychain item
--a     name
+
+-a     `name`
             search based upon account name of the item
--s      service
+            
+-s      `service`
             search based on service name of the item
--l      label
+            
+-l      `label`
             search based on label of the item
+            
 -r          return the raw keychain item with every entry
 
