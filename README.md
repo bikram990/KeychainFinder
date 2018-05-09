@@ -28,3 +28,6 @@ To get the raw results for the keychain item use "-r".
             
 -r          return the raw keychain item with every entry
 
+**Download**
+
+You can build from source from this repo, or download the binary from [here](https://files.nomad.menu/KeychainFinder.zip)
